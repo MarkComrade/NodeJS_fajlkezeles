@@ -38,6 +38,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     getMethodFetch('api/min')
     .then((data) => {
+        console.log('Fetch eredménye min: ', data);
+
+    })
+    .catch((error) => {
+        console.error('Hiba: ', error.message);
+    });
+
+    getMethodFetch('api/max')
+    .then((data) => {
+        console.log('Fetch eredménye max: ', data);
+
+    })
+    .catch((error) => {
+        console.error('Hiba: ', error.message);
+    });
+
+    getMethodFetch('api/rendezett')
+    .then((data) => {
         console.log('Fetch eredménye: ', data);
 
     })

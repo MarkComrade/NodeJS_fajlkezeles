@@ -150,12 +150,47 @@ router.get('/min', async (request, response) => {
         let min = numbers[0];
 
         for(let i = 0; i < numbers.length; i++) {
-            if(min[i] > numbers[i]) {
-                min = numbers[item]
+            if(parseInt(min) > parseInt(numbers[i])) {
+                min = numbers[i]
             }
         }
 
         response.status(200).json({ result: min });
+
+    }catch(error) {
+        console.log('GET HIPA: ' , error)
+        response.status(500).json({error: 'Szerver hipa'})
+    }
+})
+
+router.get('/max', async (request, response) => {
+    try {
+        const content = await readTextFile(path.join(__dirname, '../files/szamok.txt'))
+
+        let numbers = content.split(',')
+        let max = numbers[0];
+
+        for(let i = 0; i < numbers.length; i++) {
+            if(parseInt(max) < parseInt(numbers[i])) {
+                max = numbers[i]
+            }
+        }
+
+        response.status(200).json({ result: max });
+
+    }catch(error) {
+        console.log('GET HIPA: ' , error)
+        response.status(500).json({error: 'Szerver hipa'})
+    }
+})
+
+router.get('/rendezett', async (request, response) => {
+    try {
+        const content = await readTextFile(path.join(__dirname, '../files/szamok.txt'))
+        let numbers = content.split(',')
+        numbers.sort((a,b) => a - b);
+
+        response.status(200).json({ result: numbers });
 
     }catch(error) {
         console.log('GET HIPA: ' , error)

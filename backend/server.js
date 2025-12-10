@@ -2,6 +2,7 @@
 const express = require('express'); //?npm install express
 const session = require('express-session'); //?npm install express-session
 const path = require('path');
+const fsSync = require('fs');
 
 //!Beállítások
 const app = express();
@@ -28,9 +29,31 @@ router.get('/', (request, response) => {
     response.sendFile(path.join(__dirname, '../frontend/html/index.html'));
 });
 
+router.get('/masodik.html', (request, response) => {
+    response.sendFile(path.join(__dirname, '../frontend/html/masodik.html'));
+});
+
+//!CSOVES
+
+const writeSync = () => {
+    let numberArray = []
+
+    for(let i = 0; i < 20; i++) {
+        numberArray.push(Math.floor(Math.random() * (50 - 1 + 1)) + 1);
+    }
+    console.log(numberArray); 
+
+    fsSync.writeFileSync(
+        path.join(__dirname, '../backend/files/szamok.txt'), numberArray.join(','), 'utf8'
+    );
+}
+
+writeSync();
+
 //!API endpoints
 app.use('/', router);
 const endpoints = require('./api/api.js');
+const { write } = require('fs');
 app.use('/api', endpoints);
 
 //!Szerver futtatása

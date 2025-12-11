@@ -33,6 +33,10 @@ router.get('/masodik.html', (request, response) => {
     response.sendFile(path.join(__dirname, '../frontend/html/masodik.html'));
 });
 
+router.get('/harmadik.html', (request, response) => {
+    response.sendFile(path.join(__dirname, '../frontend/html/harmadik.html'));
+});
+
 //!CSOVES
 
 const writeSync = () => {

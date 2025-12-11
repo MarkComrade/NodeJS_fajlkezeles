@@ -50,7 +50,15 @@ const readTextFile = async (filePath) => {
       throw new Error(`Olvasási hiba (text): ${error.message}`);
     }
   };
-  
+
+const readJsonFile = async (filePath) => {
+    try {
+        const raw = await fs.readFile(filePath, 'utf8');
+        return JSON.parse(raw); // JS objektum/tömb
+    } catch (error) {
+        throw new Error(`Olvasási hiba (json): ${error.message}`);
+    }
+};
 
 router.get('/readFile', async (request, response) => {
     try {
@@ -196,6 +204,35 @@ router.get('/rendezett', async (request, response) => {
         console.log('GET HIPA: ' , error)
         response.status(500).json({error: 'Szerver hipa'})
     }
+})
+
+router.get('/getallstat', async (request, response) => {
+    try {
+        const data = await readJsonFile(path.join(__dirname,'../files/statisztika.json'));
+        response.status(200).json({ data: data });
+  } catch (error) {
+    console.log('GET /api/read-json error:', error);
+    response.status(500).json({ error: 'Internal server error' });
+  }
+
+})
+
+router.get('/getstat/:telepaz', async (request, response) => {
+    try {
+        const data = await readJsonFile(path.join(__dirname,'../files/statisztika.json'));
+        const telepaz = request.params.telepaz;
+
+        for(let i = 0; i < data.length; i++) {
+            if(data[i].telepules_azonosito == telepaz) {
+                return response.status(200).json({ result: data[i] });
+            }
+        }
+
+    } catch (error) {
+        console.log('GET /api/read-json error:', error);
+        response.status(500).json({ error: 'Internal server error' });
+    }
+
 })
 
 module.exports = router;

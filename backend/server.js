@@ -37,6 +37,9 @@ router.get('/harmadik.html', (request, response) => {
     response.sendFile(path.join(__dirname, '../frontend/html/harmadik.html'));
 });
 
+router.get('/negyedik.html', (request, response) => {
+    response.sendFile(path.join(__dirname, '../frontend/html/negyedik.html'));
+});
 //!CSOVES
 
 const writeSync = () => {

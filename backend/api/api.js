@@ -235,4 +235,55 @@ router.get('/getstat/:telepaz', async (request, response) => {
 
 })
 
+router.get('/getvizsgazok', async (request,response) => {
+    try {
+        const data = await readJsonFile(path.join(__dirname,'../files/erettsegi.json'));
+        const vizsgazok = data;
+
+        return response.status(200).json({ result: vizsgazok });
+
+    } catch (error) {
+        console.log('GET /api/read-json error:', error);
+        response.status(500).json({ error: 'Internal server error' });
+    }
+})
+
+router.get('/getosztalyzatok', async (request, response) => {
+    try {
+        const data = await readJsonFile(path.join(__dirname,'../files/erettsegi.json'));
+
+        const erettsegi = data.map(vizsgazo => {
+            const osszSzazalek = vizsgazo.Szovegszerkesztes + vizsgazo.Adatbaziskezeles + vizsgazo.Programozas + vizsgazo.Szobeli
+            let osztalyzat;
+
+            if(osszSzazalek >= 60) {
+                osztalyzat = 5;
+            } else if (osszSzazalek >= 47) {
+                osztalyzat = 4;
+            } else if (osszSzazalek >= 33) {
+                osztalyzat = 3;
+            } else if (osszSzazalek >= 25) {
+                osztalyzat = 2;
+            } else {
+                osztalyzat = 1;
+            }
+
+            return {
+                "Nev": vizsgazo.Nev,
+                "Osszpont": osszpont,
+                "Irasbeli szazalek": vizsgazo.Szovegszerkesztes + vizsgazo.Adatbaziskezeles + vizsgazo.Programozas,
+                "Szobeli szazalek": vizsgazo.Szobeli,
+                "Osztalyzat": osztalyzat
+                
+            }
+        })
+
+        return response.status(200).json({result: erettsegi});
+
+    } catch (error) {
+        console.log('GET /api/read-json error:', error);
+        response.status(500).json({ error: 'Internal server error' });
+    }
+})
+
 module.exports = router;

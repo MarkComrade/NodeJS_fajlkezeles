@@ -16,7 +16,56 @@
     </head>
     <body>
         <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-4" id="colOne">
+                    <select id="studentSelect" class="form-control w-100 mt-2">
 
+                    </select>
+
+                    <div class="card" style="justify-content: center;">
+                        <h2 id="nev">
+                            Még nincs kiválasztott vizsgázó
+                        </h2>
+
+                        <li class="list-group text-start list-group-item">
+                            <ul id="szoveg">
+
+                            </ul>
+
+                            <ul id="adat">
+
+                            </ul>
+
+                            <ul id="prog">
+
+                            </ul>
+
+                            <ul id="szobeli">
+
+                            </ul>
+                        </li>
+
+                    </div>
+                </div>
+                <div class="col-md-8" id="colTwo">
+                    <input type="button" class="btn btn-outline-secondary w-100 mt-2" value="Vizsgaeredmények betöltése" id="loadBtn"/>
+
+                    <table id="tablazat" hidden>
+                        <thead>
+                            <tr>
+                                <th>Név</th>
+                                <th>Összpont</th>
+                                <th>Írásbeli %</th>
+                                <th>Szóbeli %</th>
+                                <th>Osztályzat</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </body>
 </html>

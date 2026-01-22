@@ -253,7 +253,7 @@ router.get('/getosztalyzatok', async (request, response) => {
         const data = await readJsonFile(path.join(__dirname,'../files/erettsegi.json'));
 
         const erettsegi = data.map(vizsgazo => {
-            const osszSzazalek = vizsgazo.Szovegszerkesztes + vizsgazo.Adatbaziskezeles + vizsgazo.Programozas + vizsgazo.Szobeli
+            const osszSzazalek = Math.round(vizsgazo.Szovegszerkesztes + vizsgazo.Adatbaziskezeles + vizsgazo.Programozas + vizsgazo.Szobeli) / 150 * 100
             let osztalyzat;
 
             if(osszSzazalek >= 60) {
@@ -270,9 +270,9 @@ router.get('/getosztalyzatok', async (request, response) => {
 
             return {
                 "Nev": vizsgazo.Nev,
-                "Osszpont": osszpont,
-                "Irasbeli szazalek": vizsgazo.Szovegszerkesztes + vizsgazo.Adatbaziskezeles + vizsgazo.Programozas,
-                "Szobeli szazalek": vizsgazo.Szobeli,
+                "Osszpont": vizsgazo.Szovegszerkesztes + vizsgazo.Adatbaziskezeles + vizsgazo.Programozas + vizsgazo.Szobeli,
+                "Irasbeliszazalek": Math.round((vizsgazo.Szovegszerkesztes + vizsgazo.Adatbaziskezeles + vizsgazo.Programozas) / 120 * 100),
+                "Szobeliszazalek": Math.round((vizsgazo.Szobeli / 30) * 100),
                 "Osztalyzat": osztalyzat
                 
             }

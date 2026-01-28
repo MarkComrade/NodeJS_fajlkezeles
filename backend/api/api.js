@@ -286,6 +286,31 @@ router.get('/getosztalyzatok', async (request, response) => {
     }
 })
 
-router.post('/')
+router.post('/posttxt', async (request, response) => {
+    try {
+        let text = request.body;
+
+        await fs.appendFile(path.join(__dirname, '../files/csapi.txt'), JSON.stringify(text), 'utf8');
+
+        response.status(200).json({ message: 'Fájl sikeresen létrehozva.',
+            sent: text });
+    } catch (error) {
+        console.log('POST HIBA:', error);
+        response.status(500).json({ error: 'Szerver hiba' });
+    }
+});
+
+router.post('/postjson', async (request, response) => {
+    try {
+        let jsonData = request.body;
+        await fs.appendFile(path.join(__dirname, '../files/csapi.json'), JSON.stringify(jsonData), 'utf8');
+
+        response.status(200).json({ message: 'JSON fájl sikeresen létrehozva.',
+            sent: jsonData });
+    } catch (error) {
+        console.log('POST HIBA:', error);
+        response.status(500).json({ error: 'Szerver hiba' });
+    }
+}); 
 
 module.exports = router;

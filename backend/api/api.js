@@ -286,4 +286,6 @@ router.get('/getosztalyzatok', async (request, response) => {
     }
 })
 
+router.post('/')
+
 module.exports = router;

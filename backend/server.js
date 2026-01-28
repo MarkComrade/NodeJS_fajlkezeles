@@ -44,6 +44,18 @@ router.get('/negyedik.html', (request, response) => {
 router.get('/otodik.html', (request, response) => {
     response.sendFile(path.join(__dirname, '../frontend/html/otodik.html'));
 });
+
+router.get('/hatodik.html', (request, response) => {
+    response.sendFile(path.join(__dirname, '../frontend/html/hatodik.html'));
+});
+
+router.get('/feltolt.html', (request, response) => {
+    response.sendFile(path.join(__dirname, '../frontend/html/feltolt.html'));
+});
+
+router.get('/megjelenit.html', (request, response) => {
+    response.sendFile(path.join(__dirname, '../frontend/html/megjelenit.html'));
+});
 //!CSOVES
 
 const writeSync = () => {

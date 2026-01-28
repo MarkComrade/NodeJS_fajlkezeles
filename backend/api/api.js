@@ -313,4 +313,15 @@ router.post('/postjson', async (request, response) => {
     }
 }); 
 
+router.post('/employeesAdd', async (request, response) => {
+    try {
+        const { employeeData } = request.body;
+        await fs.appendFile(path.join(__dirname, '../files/csapi.json'), JSON.stringify(employeeData), 'utf8');
+        response.status(200).json({ message: 'Sikeresen elküldve!', sent: employeeData });
+    } catch (error) {
+        console.log('POST HIBA:', error);
+        response.status(500).json({ error: 'Szerver hiba' });
+    }
+});
+
 module.exports = router;

@@ -315,7 +315,8 @@ router.post('/postjson', async (request, response) => {
 
 router.post('/employeesAdd', async (request, response) => {
     try {
-        const { employeeData } = request.body;
+        const employeeData = request.body;
+        console.log(request.body);
         await fs.appendFile(path.join(__dirname, '../files/csapi.json'), JSON.stringify(employeeData), 'utf8');
         response.status(200).json({ message: 'Sikeresen elküldve!', sent: employeeData });
     } catch (error) {

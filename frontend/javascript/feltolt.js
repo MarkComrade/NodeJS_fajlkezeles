@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('feltoltes').addEventListener('click', feltolt);
+    document.getElementById('feltolt').addEventListener('click', feltolt);
 });
 
 const getMethodFetch = async (url) => {
@@ -14,7 +14,7 @@ const getMethodFetch = async (url) => {
         return await response.json();
 
     }catch(error){
-        throw new Error('Hiba történt ', `${error.message}`)
+        throw new Error('Hiba történt ', `${error.message}`) 
     }
 }
 
@@ -27,15 +27,42 @@ const postMethodFetch = async (url, data) => {
             },
             body: JSON.stringify(data)
         });
+
+        console.log(response);
+
         if(!response.ok) {
             throw new Error('POST hiba: ', `${response.status}, ${response.message}`)
         }
         return await response.json();
+        
     }catch(error){
         throw new Error('Hiba történt ', `${error.message}`)
     }   
 }
 
 const feltolt = async () => {
-    document.getElementById('')
+    let nev = document.getElementById('nev').value;
+    console.log(nev);
+    let pozicio = document.getElementById('pozicio').value;
+    console.log(pozicio);
+    let szuletes = document.getElementById('szuletes').value;
+    console.log(szuletes);
+    let fizetes = document.getElementById('fizetes').value;
+    console.log(fizetes);
+
+    const ujDolgozo = {
+        nev: nev,
+        pozicio: pozicio,
+        szuletes: szuletes,
+        fizetes: fizetes
+    };
+
+    console.log(ujDolgozo);
+
+    try{
+        const response = await postMethodFetch('/api/employeesAdd', ujDolgozo);
+        console.log('Új dolgozó hozzáadva:', response);
+    }catch(error){
+        console.error('Hiba történt a feltöltés során:', error);
+    }
 }
